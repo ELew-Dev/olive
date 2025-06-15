@@ -97,11 +97,3 @@ olive/
 ## 🙌 Why "Olive"?
 
 Because this AI bot is simple, warm, and always ready to help — just like a good olive oil drizzle. 🍽️
-
----
-
-## 📫 Contact
-
-Created by Ethan Lewis — feel free to reach out with questions or feedback!
-
-```
