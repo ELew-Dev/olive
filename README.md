@@ -2,97 +2,143 @@
 
 Olive is an AI-powered helper designed to make support teams faster, calmer, and more efficient. It classifies customer messages and drafts smart, friendly replies in real time.
 
-Built with:  
-- 🧠 OpenAI GPT  
-- 🖼️ Streamlit interface  
-- 💬 Clean UX for support agents  
+**Built with:**
 
----
+  * **🧠 OpenAI GPT:** The powerful language model behind Olive's intelligence.
+  * **🖼️ Streamlit interface:** For a clean, interactive web application.
+  * **💬 Clean UX:** Designed for support agents to easily input messages and get responses.
+
+-----
 
 ## 🚀 Getting Started
 
-1. Clone the repo:  
-   ```bash
-   git clone https://github.com/your-username/olive.git
-   cd olive
+Follow these steps to get Olive up and running on your local machine.
+
+### 1\. Clone the Repository & Navigate
+
+First, get a copy of the project and move into its directory:
+
+```bash
+git clone https://github.com/your-username/olive.git
+cd olive
 ```
 
-2. Create and activate a virtual environment:
+### 2\. Create and Activate a Virtual Environment
 
-   ```bash
-   python -m venv venv
-   source venv/bin/activate
-   ```
+It's highly recommended to use a virtual environment to manage project dependencies.
 
-3. Install requirements:
+```bash
+python3 -m venv venv
+source venv/bin/activate   # On macOS/Linux
+# venv\Scripts\activate    # On Windows
+```
 
-   ```bash
-   pip install -r requirements.txt
-   ```
+### 3\. Install Requirements
 
-4. Create a `.env` file with your OpenAI API key:
+Install all necessary Python packages within your activated virtual environment:
 
-   ```ini
-   OPENAI_API_KEY=sk-...
-   ```
+```bash
+pip install -r requirements.txt
+```
 
-5. Run the app:
+### 4\. OpenAI API Key Configuration
 
-   ```bash
-   streamlit run app.py
-   ```
+Olive requires an OpenAI API key to access its language models.
 
----
+  * **Obtain Your API Key:**
+
+    1.  Go to the OpenAI API Keys page: [https://platform.openai.com/account/api-keys](https://platform.openai.com/account/api-keys)
+    2.  Log in to your OpenAI account.
+    3.  Click **"Create new secret key"**. Give it a descriptive name (e.g., "Olive App Key").
+    4.  **Immediately copy the *entire* key\!** It will only be shown once. It will start with `sk-` or `sk-proj-`.
+
+  * **Create or Update `.env` File:**
+
+    1.  In the root of your `olive` project directory, create a new file named **`.env`** (note the leading dot, this makes it a hidden file).
+
+    2.  Add the following line to your `.env` file, replacing `<YOUR_OPENAI_API_KEY>` with the key you just copied:
+
+        ```dotenv
+        OPENAI_API_KEY=sk-your_brand_new_secret_key_here
+        ```
+
+          * **Important:** Ensure there are no spaces around the `=` sign or at the end of the key.
+
+  * **Verify `.env` Loading (Optional but Recommended):**
+    You can use the `check_env.py` script to confirm your `.env` file is being read correctly:
+
+    ```bash
+    (venv) your_username@your_machine olive % python3 check_env.py
+    ```
+
+    Expected Output: `API key loaded: sk-xxxxx***********************xxxx`
+
+### 5\. Run the Application
+
+With your virtual environment active and `.env` configured, you can launch the Streamlit app:
+
+```bash
+streamlit run app.py
+```
+
+This will open the Olive AI Assistant in your web browser.
+
+-----
 
 ## 🧠 What Olive Does
 
-* ✅ Classifies customer message intent (Cancel, Reschedule, Complaint, Compliment, General Question)
-* ✨ Generates a thoughtful, natural reply based on the detected intent
-* 🔁 Easily extendable for tagging, routing, automation, or real-time support
+  * **✅ Classifies Customer Message Intent:** Olive can detect the core purpose of a customer message (e.g., Cancel, Reschedule, Complaint, Compliment, General Question).
+  * **✨ Generates Thoughtful Replies:** Based on the detected intent and the original message, Olive crafts a friendly and natural language response.
+  * **🔁 Easily Extendable:** The core logic is designed to be easily extended for more advanced features like automated tagging, intelligent message routing, or integration into real-time support systems.
 
----
+-----
 
 ## 📂 Project Structure
 
-```bash
+```
 olive/
  ├── app.py               # Streamlit UI for user input and output
  ├── olive.py             # Core AI logic: intent classification & response generation
- ├── .env                 # Environment variables (e.g., OpenAI API key)
- ├── .gitignore           # Git ignore rules
+ ├── .env                 # Environment variables (e.g., OpenAI API key - crucial for security!)
+ ├── .gitignore           # Git ignore rules (prevents sensitive files like .env from being committed)
  ├── requirements.txt     # Python dependencies
  ├── README.md            # This file
+ ├── check_env.py         # Utility script to verify .env file loading (useful for debugging)
  └── examples/
      └── sample_inputs.md # Example customer messages for testing
 ```
 
----
+-----
 
-## 🧱 Development Outline
+## 🛠️ Troubleshooting Common Issues
 
-1. **Project Setup (15–20 min)**
-   Create folder, virtual environment, install packages (openai, streamlit, python-dotenv)
-   Create files: `app.py`, `olive.py`, `.env`
-   Add `.gitignore` with entries for `__pycache__/`, `.env`, and `venv/`
-   Create `requirements.txt`
+Encountering problems? Here are solutions to the most common issues:
 
-2. **AI Logic (30 min)**
-   Write `classify_message()` to detect intent using OpenAI ChatCompletion
-   Write `generate_response()` to produce friendly replies based on intent
+### Error: `401 - Incorrect API key provided`
 
-3. **Streamlit UI (30–40 min)**
-   Build UI in `app.py` to input messages and display intent and AI-generated reply
+**Problem:** The OpenAI API is rejecting the API key being sent. This means the key is invalid, expired, revoked, or incorrectly formatted/loaded. Even if `check_env.py` shows it loaded, the API itself isn't accepting it.
 
-4. **Example Inputs (10–15 min)**
-   Add example messages and expected outputs in `examples/sample_inputs.md`
+**Solution:**
 
-5. **README polish (20 min)**
-   Document the project goals, usage, and structure
+1.  **Generate a NEW API Key:** Go back to [https://platform.openai.com/account/api-keys](https://platform.openai.com/account/api-keys) and create a brand new secret key. Copy it immediately.
+2.  **Update `.env`:** Open your `.env` file and *replace* the existing `OPENAI_API_KEY` value with this **new, freshly copied key**. Save the file.
+3.  **Full Restart:**
+      * Stop the Streamlit app (`Ctrl + C` in your terminal).
+      * Deactivate your virtual environment (`deactivate`).
+      * Reactivate your virtual environment (`source venv/bin/activate`).
+      * Run `streamlit run app.py` again.
+4.  **Verify `olive.py`:** Ensure `load_dotenv()` is called at the very top of `olive.py` and that the OpenAI client is initialized like `client = openai.OpenAI(api_key=api_key)`.
 
-6. **Final Polish + GitHub Upload (15–20 min)**
-   Initialize git repo, commit, push to GitHub
+### Error: `429 - You exceeded your current quota`
 
----
+**Problem:** Your API key is valid and connected to OpenAI, but your account has run out of free credits or has reached its spending limit. This is a billing-related issue.
+
+**Solution:**
+
+1.  **Check OpenAI Usage/Billing:** Visit [https://platform.openai.com/usage](https://platform.openai.com/usage) and review your current usage and available credit.
+2.  **Add Payment Information/Credits:** If necessary, add a payment method or purchase more credits directly on the OpenAI platform to continue using the API.
+
+-----
 
 ## 🙌 Why "Olive"?
 
